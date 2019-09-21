@@ -1,0 +1,8 @@
+---
+name: test
+dotted: true
+source: test
+target: ~
+description:
+  A test dotfile to verify moar-dots is working as intended.
+---

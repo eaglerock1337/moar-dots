@@ -1,6 +1,31 @@
 # moar-dots
 A Python utility for managing dotfiles and system configuration files
 
+## setup
+
+### install pip3
+
+`sudo apt install pip3`
+`sudo pip3 install --upgrade pip`
+
+### install pipenv
+
+`sudo pip3 install pipenv`
+
+### run setup script
+
+From this directory:
+`pipenv install`
+`pipenv run python setup.py`
+
+### usage
+
+TBD
+
+## everything
+
+TBD
+
 ## ideas
 * dotfiles are processed by tags
 * dot class to handle placement or removal of dotfiles as needed
