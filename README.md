@@ -12,13 +12,17 @@ sudo pip3 install --upgrade pip
 
 ### install pipenv
 
-`sudo pip3 install pipenv`
+```
+sudo pip3 install pipenv
+```
 
 ### run setup script
 
 From this directory:
-`pipenv install`
-`pipenv run python setup.py`
+```
+pipenv install
+pipenv run python setup.py
+```
 
 ### usage
 
