@@ -5,8 +5,10 @@ A Python utility for managing dotfiles and system configuration files
 
 ### install pip3
 
-`sudo apt install pip3`
-`sudo pip3 install --upgrade pip`
+```
+sudo apt install pip3
+sudo pip3 install --upgrade pip
+```
 
 ### install pipenv
 
