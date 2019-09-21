@@ -1,0 +1,132 @@
+---
+error: even_odd_groups
+text:
+  - Even groups got left, odd groups got right.
+  - That means 1, 3, 5, 7 left...2, 4, 6, 8 right.
+  - Seven and eight are whelp groups.
+aggro: 0
+---
+error: dps_slowly
+text:
+  - Okay, LISTEN THE FUCK UP!
+  - You're doing to DPS...very very slowly!
+  - And by slow I mean FUCKING SLOW!
+aggro: 1
+---
+error: learn2play
+text:
+  - If you get aggro...
+  - You're going to lose 50 DKP...
+  - Cause you didn't know what the fuck to do!
+aggro: 2
+---
+error: watch_tail
+text:
+  - And watch the FUCKING tail!
+  - If you get kicked into the whelps, you'll lose 50 DKP again...
+  - ...for not being where the fuck you were supposed to be!
+aggro: 3
+---
+error: no_aggro_reset
+text:
+  - There is no aggro reset! You only need...
+  - There's some shit about an aggro reset...
+  - ...when people don't know how to manage their aggro!
+aggro: 4
+---
+error: nuke_it_dot_it
+text:
+  - Okay, nuke it, dot it...
+  - Help the whelp groups...
+  - When into phase 2, nuke it as hard as possible!
+aggro: 5
+--- 
+error: not_enough_dots
+text:
+  - I don't see enough dots!
+  - More dots, NOW!
+  - Come on, more DPS! Hit it like you mean it!
+aggro: 6
+---
+error: save_aggro
+text:
+  - Save all your aggro-reducing abilities for when it lands!
+  - That means Feign Death...uh, Vanish...
+  - Uh...fucking Fade! Anything you can use to reset aggro!
+aggro: 7
+---
+error: moar_dots
+text:
+  - THROW MOAR DOTS! MOAR DOTS! MOAR DOTS!
+  - Come on, more dots!
+  - K, stop dots.
+aggro: 8
+---  
+error: run_to_center
+text:
+  - Lee, run to the center! Morgris, run to the center!
+  - Forsythe, run to the center! Ices, run to the center!
+  - WHATEVER THE FUCK YOU DO DON'T STAND NEXT OTHER PEOPLE!
+aggro: 9
+---
+error: go_away_lee
+text:
+  - Lee, do NOT...
+  - Go away from the head, Lee!
+  - GO AWAY!
+aggro: 10
+---
+error: come_here
+text:
+  - K, DPS! SLOWLY!
+  - COME HERE YOU FUCKING CUNT!
+  - WATCH THE TAIL!
+aggro: 12
+---
+error: whelp
+text:
+  - Whelp!
+  - Mogris was feared into the...
+  - WHO THE FUCK WAS THAT????!?!?!?!?!?
+aggro: 14
+dkpminus: 50
+---
+error: many_whelps
+text:
+  - WHELPS! LEFT SIDE!
+  - EVEN SIDE! MANY WHELPS! NOW, HANDLE IT!
+  - FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK!!!!!
+aggro: 16
+dkpminus: 50
+---
+error: dkp_minus
+text:
+  - THAT'S A FUCKING 50 DKP MINUS!!!
+  - WHAT THE FUCK...
+  - WAS THAT SHIT????
+aggro: 18
+dkpminus: 50
+---
+error: right_fucking_place
+text:
+  - IF YOU STAND IN THE RIGHT FUCKING PLACE...
+  - THERE IS NO WAY YOU ARE GOING TO FUCKING GET...
+  - INTO THE GODDAMN WHELPS...WHATEVER THE FUCK!
+aggro: 20
+dkpminus: 50
+---
+error: whatever_fear
+text:
+  - WHATEVER FEAR...
+  - TAILSWIPE...
+  - WHATEVER THE FUCK!!! OKAY???
+aggro: 25
+dkpminus: 50
+---
+error: one_in_million
+text:
+  - IT'S LIKE ONE IN A FUCKING MILLION!
+  - FROM THE NORTH CORNER, TO THE MIDDLE, TO THE FUCKING WHELP CAVE...
+  - IT'S NOT EVEN FUCKING REMOTELY IMAGINABLE!!!
+aggro: 30
+dkpminus: 100

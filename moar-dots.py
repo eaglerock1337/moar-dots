@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 
-import moar-dots
+from moar_dots import Dot, Wipe
 
 """
 moar-dots - More than a Dotfile script!
