@@ -4,7 +4,8 @@ from moar_dots import Wipe
 
 class Dot:
     """
-    The core Dot class used by moar-dots to handle all different file types.
+    The base Dot class used by moar-dots to handle basic dotfiles to be stored
+    on the filesystem. Also acts as the parent class for all other file types.
     """
 
     def __init__(self, config):
@@ -13,7 +14,7 @@ class Dot:
         except KeyError as e:
             Wipe(
                 e,
-                "Tried to create a Dot, but didn't have a name specified!",
+                "Tried to create a dot, but didn't have a name specified!",
                 f"Here's what was passed in to the class: {config}"
             )
 
