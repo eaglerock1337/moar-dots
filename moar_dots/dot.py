@@ -17,7 +17,7 @@ class Dot:
                 e,
                 "Tried to create a dot, but didn't have a name specified!",
                 f"Here's what was passed in to the class: {config}",
-                )
+            )
 
     def dot_it(self):
         pass

@@ -3,6 +3,7 @@ import os
 import yaml
 
 from .constants import CONFIG_DIR, CONFIG_FILE, EASTER_FILE
+
 """
 config.py
 

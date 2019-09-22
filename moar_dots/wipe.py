@@ -7,6 +7,7 @@ from time import sleep
 
 from .config import easter
 from .constants import EASTER_FILE, ERROR_FILE
+
 """
 wipe.py
 
@@ -41,7 +42,7 @@ class Wipe:
 
         with open(ERROR_FILE, "r") as file:
             errors = list(yaml.load_all(file, Loader=yaml.FullLoader))
-        
+
         return errors
 
     def _roll_for_error(self, aggro):
@@ -52,7 +53,7 @@ class Wipe:
         error_choices = []
 
         for error in self.errors:
-            if error['aggro'] <= aggro:
+            if error["aggro"] <= aggro:
                 error_choices.append(error)
             else:
                 break
@@ -74,7 +75,7 @@ class Wipe:
         for line in error["text"]:
             self.log.info(line)
             sleep(2)
-        
+
         self.log.info("=" * 70)
         self.log.error("(Seriously though, moar-dots had a sad.)")
         self.log.error(f"\nException: {self.error}")
@@ -84,9 +85,11 @@ class Wipe:
 
         self.log.debug("Updating easter egg data and quitting...")
         easter["aggro"] += 1
-        if "dkpminus" in error:  
+        if "dkpminus" in error:
             easter["dkpminus"] += error["dkpminus"]
-            self.log.error(f"\nOh, and by the way, that was a {error['dkpminus']} DKP minus.")
-        
+            self.log.error(
+                f"\nOh, and by the way, that was a {error['dkpminus']} DKP minus."
+            )
+
         with open(EASTER_FILE, "w+") as file:
             file.write(yaml.dump(easter))

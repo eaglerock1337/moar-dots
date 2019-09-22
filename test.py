@@ -14,7 +14,5 @@ log.setLevel(logging.INFO)
 
 log.info("Testing a wipe!")
 my_wipe = Wipe(
-            "KeyError", 
-            "This is supposed to tell me wtf went wrong.",
-            "This, too. Supposedly."
-            )
+    "KeyError", "This is supposed to tell me wtf went wrong.", "This, too. Supposedly."
+)
