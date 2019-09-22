@@ -1,6 +1,7 @@
 import yaml
 import logging
 
+
 class Wipe:
     """
     An very themed error handling class for moar-dots
@@ -31,4 +32,3 @@ class Wipe:
 
     def _onyxia_wipe(self):
         pass
-
