@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 
-from moar_dots import Dot, Wipe
+from moar_dots import config, Dot, Wipe
 
 """
 moar-dots - More than a Dotfile script!
@@ -47,13 +47,10 @@ class MoarDots:
 
         stdout_handler = logging.StreamHandler(sys.stdout)
         stdout_handler.setFormatter(logging.Formatter("%(message)s"))
-        stdout_handler.setLevel(logging.INFO)
+        stdout_handler.setLevel(logging.DEBUG)
 
         log.addHandler(stdout_handler)
 
-        if self.verbose:
-            log.setLevel(logging.INFO)
-        else:
-            log.setLevel(logging.WARNING)
+        log.setLevel(logging.DEBUG)
 
         self.log = log

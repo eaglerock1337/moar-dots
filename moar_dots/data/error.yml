@@ -1,5 +1,5 @@
----
-error: even_odd_groups
+--- 
+error: opening
 text:
   - Even groups got left, odd groups got right.
   - That means 1, 3, 5, 7 left...2, 4, 6, 8 right.
@@ -20,7 +20,7 @@ text:
   - Cause you didn't know what the fuck to do!
 aggro: 2
 ---
-error: watch_tail
+error: watch_the_tail
 text:
   - And watch the FUCKING tail!
   - If you get kicked into the whelps, you'll lose 50 DKP again...
@@ -36,15 +36,15 @@ aggro: 4
 ---
 error: nuke_it_dot_it
 text:
-  - Okay, nuke it, dot it...
+  - Okay, nuke it, DOT it...
   - Help the whelp groups...
   - When into phase 2, nuke it as hard as possible!
 aggro: 5
 --- 
 error: not_enough_dots
 text:
-  - I don't see enough dots!
-  - More dots, NOW!
+  - I don't see enough DOTs!
+  - More DOTs, NOW!
   - Come on, more DPS! Hit it like you mean it!
 aggro: 6
 ---
@@ -58,8 +58,8 @@ aggro: 7
 error: moar_dots
 text:
   - THROW MOAR DOTS! MOAR DOTS! MOAR DOTS!
-  - Come on, more dots!
-  - K, stop dots.
+  - Come on, more DOTs!
+  - K, stop DOTs.
 aggro: 8
 ---  
 error: run_to_center
