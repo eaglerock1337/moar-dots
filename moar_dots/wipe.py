@@ -29,7 +29,7 @@ class Wipe:
         self.log.debug("Retrieving all error messages...")
         errors = []
         with open(ERROR_FILE, "r") as file:
-            errors = yaml.load_all(file)
+            errors = list(yaml.load_all(file, Loader=yaml.FullLoader))
             self.log.debug("Here's what we got: {errors}")
         
         return errors

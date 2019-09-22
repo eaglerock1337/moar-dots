@@ -15,4 +15,4 @@ except FileNotFoundError:
     log.debug("No config file found! Initializing blank config...")
     configfile = ""
 
-config = yaml.load(configfile) or {}
+config = yaml.load(configfile, Loader=yaml.FullLoader) or {}
