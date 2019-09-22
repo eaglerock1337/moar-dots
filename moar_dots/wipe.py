@@ -8,17 +8,11 @@ from time import sleep
 from .config import easter
 from .constants import EASTER_FILE, ERROR_FILE
 
-"""
-wipe.py
-
-Error-handling class for moar-dots.
-Also has an easter egg.
-"""
-
 
 class Wipe:
     """
-    An very strongly themed error handling class for moar-dots
+    An very strongly themed error handling class for moar-dots.
+    Also has an easter egg.
     """
 
     def __init__(self, error, *args):
