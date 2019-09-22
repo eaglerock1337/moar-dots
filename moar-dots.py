@@ -43,7 +43,7 @@ class MoarDots:
         """
         Sets up the logger to print to stdout and sets the verbosity based on the command input.
         """
-        log = logging.getLogger(__name__)
+        log = logging.getLogger()
 
         stdout_handler = logging.StreamHandler(sys.stdout)
         stdout_handler.setFormatter(logging.Formatter("%(message)s"))

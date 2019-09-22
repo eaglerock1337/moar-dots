@@ -2,15 +2,15 @@ import logging
 import sys
 from moar_dots import Wipe
 
-log = logging.getLogger(__name__)
+log = logging.getLogger()
 
 stdout_handler = logging.StreamHandler(sys.stdout)
 stdout_handler.setFormatter(logging.Formatter("%(message)s"))
-stdout_handler.setLevel(logging.DEBUG)
+stdout_handler.setLevel(logging.INFO)
 
 log.addHandler(stdout_handler)
 
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 log.info("Testing a wipe!")
 my_wipe = Wipe(

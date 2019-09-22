@@ -1,9 +1,19 @@
 import logging
+import os
 import random
 import yaml
 
-from .config import config
-from .constants import CONFIG_FILE, ERROR_FILE
+from time import sleep
+
+from .config import easter
+from .constants import EASTER_FILE, ERROR_FILE
+"""
+wipe.py
+
+Error-handling class for moar-dots.
+Also has an easter egg.
+"""
+
 
 class Wipe:
     """
@@ -28,9 +38,9 @@ class Wipe:
         """
         self.log.debug("Retrieving all error messages...")
         errors = []
+
         with open(ERROR_FILE, "r") as file:
             errors = list(yaml.load_all(file, Loader=yaml.FullLoader))
-            self.log.debug("Here's what we got: {errors}")
         
         return errors
 
@@ -38,7 +48,7 @@ class Wipe:
         """
         Returns a random error based on the aggro level passed in.
         """
-        self.log.debug(f"Rolling for an error under aggro level {aggro}...")
+        self.log.debug("Rolling for an error under aggro level %d...", aggro)
         error_choices = []
 
         for error in self.errors:
@@ -47,7 +57,8 @@ class Wipe:
             else:
                 break
 
-        self.log.debug(f"Retrieved {len(error_choices)} errors, choosing one...")
+        self.log.debug(f"Retrieved {len(error_choices)} error(s), choosing one...")
+        random.seed()
         return random.choice(error_choices)
 
     def _onyxia_wipe(self):
@@ -57,13 +68,25 @@ class Wipe:
         """
         self.log.debug("Starting Onyxia Wipe...")
 
-        self.log.warn("Temporary config hack in place...remove me eventually!")
-        # TODO: Remove this once the config import is complete!
-        if not "aggro" in config:
-            config["aggro"] = 0
-        if not "dkpminus" in config:
-            config["dkpminus"] = 0
+        error = self._roll_for_error(easter["aggro"])
+        self.log.debug(f"Error retrieved: {error['error']}")
+        self.log.info("=" * 70)
+        for line in error["text"]:
+            self.log.info(line)
+            sleep(2)
+        
+        self.log.info("=" * 70)
+        self.log.error("(Seriously though, moar-dots had a sad.)")
+        self.log.error(f"\nException: {self.error}")
+        self.log.error("\nHere's some info about what happened:")
+        for line in self.text:
+            print(f"  {line}")
 
-        error = self._roll_for_error(config["aggro"])
-        # log.debug(f"Error retrieved: {error["error"]}")
-        self.log.info("=" * 60)
+        self.log.debug("Updating easter egg data and quitting...")
+        easter["aggro"] += 1
+        if "dkpminus" in error:  
+            easter["dkpminus"] += error["dkpminus"]
+            self.log.error(f"\nOh, and by the way, that was a {error['dkpminus']} DKP minus.")
+        
+        with open(EASTER_FILE, "w+") as file:
+            file.write(yaml.dump(easter))
