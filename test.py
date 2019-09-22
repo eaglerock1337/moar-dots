@@ -6,11 +6,11 @@ log = logging.getLogger()
 
 stdout_handler = logging.StreamHandler(sys.stdout)
 stdout_handler.setFormatter(logging.Formatter("%(message)s"))
-stdout_handler.setLevel(logging.INFO)
+stdout_handler.setLevel(logging.DEBUG)
 
 log.addHandler(stdout_handler)
 
-log.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
 
 log.info("Testing a wipe!")
 my_wipe = Wipe(

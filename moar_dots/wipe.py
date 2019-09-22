@@ -42,13 +42,18 @@ class Wipe:
     def _roll_for_error(self, aggro):
         """
         Returns a random error based on the aggro level passed in.
+        If there is an exact hit on aggro level, it will use that error instead.
         """
+
         self.log.debug("Rolling for an error under aggro level %d...", aggro)
         error_choices = []
 
         for error in self.errors:
-            if error["aggro"] <= aggro:
+            if error["aggro"] < aggro:
                 error_choices.append(error)
+            elif error["aggro"] == aggro:
+                self.log.debug("Got an exact hit! Returning newly unlocked error!")
+                return error
             else:
                 break
 
