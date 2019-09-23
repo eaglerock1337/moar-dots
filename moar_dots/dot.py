@@ -1,6 +1,7 @@
 import logging
 import os
 
+from .config import cache
 from .constants import BACKUP_EXTENSION
 from .wipe import Wipe
 
@@ -107,11 +108,21 @@ class Dot:
         self._check_directory()
         self._check_file()
 
+        self.log.debug()
+
+        self.log.debug(f"Symlinking {self.properties['source']} to {self.properties['target']}...")
         os.symlink(self.properties["source"], self.properties["target"])
-    
+
+        # TODO: Update cache
 
     def nuke_it(self):
         """
         Removes the dotfile symlink and restores original if found
         """
-        pass
+        self.log.info(f"Nuke it: {self.properties['name']}")
+
+        if not os.path.islink(self.properties["target"]):
+            self.log.warn("")
+
+        # TODO: Update cache
+

@@ -2,7 +2,7 @@ import logging
 import os
 import yaml
 
-from .constants import CONFIG_DIR, CONFIG_FILE, EASTER_FILE
+from .constants import CONFIG_DIR, CACHE_FILE, CONFIG_FILE, EASTER_FILE
 
 """
 config.py
@@ -16,7 +16,6 @@ try:
 except FileNotFoundError:
     log = logging.getLogger(__name__)
     log.debug("No config file found! Initializing blank config...")
-    configfile = ""
     os.makedirs(CONFIG_DIR, exist_ok=True)
     config = {}
 
@@ -28,3 +27,12 @@ except FileNotFoundError:
     log.debug("No easter egg file found! Initializing...")
     os.makedirs(CONFIG_DIR, exist_ok=True)
     easter = {"aggro": 0, "dkpminus": 0}
+
+try:
+    cachefile = open(CACHE_FILE, "r")
+    cache = dict(yaml.load(cachefile, Loader=yaml.FullLoader))
+except FileNotFoundError:
+    log = logging.getLogger(__name__)
+    log.debug("No cache file found! Initializing...")
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    cache = {}
