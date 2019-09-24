@@ -178,7 +178,7 @@ class Dot:
         """
         pass
 
-    def _add_to_cache(self):
+    def _save_to_cache(self):
         """
         Add the file and link information to the moar-dots cachefile
         """
@@ -208,8 +208,7 @@ class Dot:
         self._check_cache()
 
         os.symlink(self.source, self.target)
-
-        self._add_to_cache()
+        self._save_to_cache()
 
     def is_installed(self):
         """
