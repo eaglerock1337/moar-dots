@@ -1,6 +1,7 @@
 import logging
 import os
 
+from .config import cache
 from .constants import BACKUP_EXTENSION
 from .wipe import Wipe
 
@@ -220,5 +221,10 @@ class Dot:
         """
         Removes the dotfile symlink and restores original if found
         """
-        pass
+        self.log.info(f"Nuke it: {self.properties['name']}")
+
+        if not os.path.islink(self.properties["target"]):
+            self.log.warn("")
+
+        # TODO: Update cache
 
