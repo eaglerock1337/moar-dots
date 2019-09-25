@@ -1,3 +1,4 @@
+import filecmp
 import logging
 import os
 
@@ -14,11 +15,18 @@ class Dot:
 
     REQUIRED_PROPERTIES = ["name", "source", "target"]
     OPTIONAL_PROPERTIES = ["description", "filename", "is_directory"]
-    DEFAULT_PROPERTIES = {"dotted": False, "replace": False, "create_dirs": False}
+    DEFAULT_PROPERTIES = {
+        "create_dirs": False,
+        "dotted": False,
+        "install": True,
+        "replace": False,
+    }
+
+    dot_type = "Dot"
 
     def __init__(self, config):
         self.log = logging.getLogger(__name__)
-        self.log.debug("Initializing Dot object...")
+        self.log.debug(f"Initializing {self.dot_type} object...")
 
         self.properties = {}
         for required in self.REQUIRED_PROPERTIES:
@@ -30,7 +38,7 @@ class Dot:
             except KeyError as key_error:
                 Wipe(
                     key_error,
-                    f"Tried to create a Dot, but didn't have a {required} specified!",
+                    f"Tried to create a {self.dot_type}, but didn't have a {required} specified!",
                     f"Here's the remainder of the config being sent to the Dot: {config}",
                 )
 
@@ -71,6 +79,34 @@ class Dot:
         except KeyError:
             return os.path.basename(self.properties["source"])
 
+    def _check_cache(self):
+        """
+        Check the cache to see if the file was already installed by moar_dots
+        Returns True if the cache matches and is installed, otherwise returns False
+        """
+        self.log.debug(f"Checking cache for {self.name}")
+
+        if self.name in cache:
+            self.log.debug(f"There was a cache hit. Checking validity...")
+
+            for key in cache[self.name].keys():
+                if key in ["source", "target"]:
+                    continue
+                if cache[self.name][key] != self.properties[key]:
+                    self.log.debug("There was a cache mismatch. Updating file...")
+                    return False
+
+            if self.is_installed():
+                self.log.info(f"{self.name} is already installed. Skipping...")
+                return True
+            else:
+                self.log.debug(f"{self.name}'s cache is correct but the file appears wrong, installing...")
+                return False
+
+        else:
+            self.log.debug(f"No cache for {self.name}, installing...")
+            return False
+
     def _check_source(self):
         """
         Validate source file in repo
@@ -84,7 +120,7 @@ class Dot:
             Wipe(
                 "SourceNotFoundError",
                 f"The source file {self.source} does not exist!",
-                f"Please check the config for {self.name} for accuracy."
+                f"Please check the config for {self.name} for accuracy.",
             )
 
         self.log.debug(f"Verifying source file type...")
@@ -97,7 +133,7 @@ class Dot:
         else:
             self.log.debug(f"Source validated as a directory: {self.source_file}")
             return
-        
+
         if not self.properties["is_directory"] and os.path.isdir(self.source):
             Wipe(
                 "SourceNotFIleError",
@@ -116,8 +152,10 @@ class Dot:
         self.log.debug(f"Processing target for {self.name}: {self.target}")
 
         if self.target.endswith(self.source_file):
-            self.log.info("Exact filename detected. This will be processed, but this isn't recommended.")
-            self.log.debug("Instead, add 'fieldname' to your Dot config.")
+            self.log.info(
+                "Exact filename detected. This will be processed, but this isn't recommended."
+            )
+            self.log.debug(f"Instead, add 'fieldname' to your {self.dot_type} config.")
             self.target_dir = os.path.dirname(self.target)
             self.target_file = os.path.basename(self.target)
             return
@@ -142,7 +180,9 @@ class Dot:
 
         if not os.path.isdir(self.target_dir):
             if self.properties["create_dirs"]:
-                self.log.debug(f"Directory {self.target_dir} does not exist. Creating...")
+                self.log.debug(
+                    f"Directory {self.target_dir} does not exist. Creating..."
+                )
                 os.makedirs(self.target_dir, exist_ok=True)
             else:
                 Wipe(
@@ -161,9 +201,7 @@ class Dot:
         if os.path.exists(self.target):
             if self.properties["replace"]:
                 self.log.info(f"File {self.name} exists. Backing up...")
-                self.log.debug(
-                    f"Backing up to {self.target}{BACKUP_EXTENSION}"
-                )
+                self.log.debug(f"Backing up to {self.target}{BACKUP_EXTENSION}")
                 os.rename(self.target, f"{self.target}{BACKUP_EXTENSION}")
             else:
                 Wipe(
@@ -173,16 +211,19 @@ class Dot:
                     "include \"'replace': True\" in the config.",
                 )
 
-    def _check_cache(self):
-        """
-        Verify the cached link is correctly assigned
-        """
-        pass
-
     def _save_to_cache(self):
         """
         Add the file and link information to the moar-dots cachefile
         """
+        cache[self.name] = {
+            "description": self.properties["description"],
+            "source": self.source,
+            "target": self.target,
+            "type": self.dot_type,
+            "is_directory": self.properties["is_directory"],
+            "install": "False"
+        }
+
         pass
 
     def dot_it(self):
@@ -202,11 +243,14 @@ class Dot:
         for property in dump_properties:
             self.log.debug(f"- {property.capitalize()}: {self.properties[property]}")
 
+        if self._check_cache():
+            self.log.info(f"{self.name} is already installed! Skipping...")
+            return
+
         self._check_source()
         self._set_target()
         self._check_directory()
         self._check_file()
-        self._check_cache()
 
         os.symlink(self.source, self.target)
         self._save_to_cache()
@@ -215,7 +259,11 @@ class Dot:
         """
         Checks the moar_dots cache to see if the symlink was installed.
         """
-        pass
+        if self.name not in cache:
+            self.log.debug(f"{self.name} not in cache, so assuming it isn't insalled!")
+            return False
+
+        return filecmp.cmp(cache[self.name]["source"], cache[self.name]["target"])
 
     def nuke_it(self):
         """
@@ -227,4 +275,3 @@ class Dot:
             self.log.warn("")
 
         # TODO: Update cache
-
