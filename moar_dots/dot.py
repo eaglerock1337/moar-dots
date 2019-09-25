@@ -100,7 +100,9 @@ class Dot:
                 self.log.info(f"{self.name} is already installed. Skipping...")
                 return True
             else:
-                self.log.debug(f"{self.name}'s cache is correct but the file appears wrong, installing...")
+                self.log.debug(
+                    f"{self.name}'s cache is correct but the file appears wrong, installing..."
+                )
                 return False
 
         else:
@@ -221,7 +223,7 @@ class Dot:
             "target": self.target,
             "type": self.dot_type,
             "is_directory": self.properties["is_directory"],
-            "install": "False"
+            "install": "False",
         }
 
         pass
