@@ -68,6 +68,7 @@ class Dot:
             self.log.info(f"Unexpected fields: {config}")
 
         self.target_file = self._get_target_file()
+        self.backup_file = False
 
     def _get_target_file(self):
         """
@@ -205,6 +206,7 @@ class Dot:
                 self.log.info(f"File {self.name} exists. Backing up...")
                 self.log.debug(f"Backing up to {self.target}{BACKUP_EXTENSION}")
                 os.rename(self.target, f"{self.target}{BACKUP_EXTENSION}")
+                self.backup_file = True
             else:
                 Wipe(
                     "FileExistsError",
@@ -213,9 +215,10 @@ class Dot:
                     "include \"'replace': True\" in the config.",
                 )
 
-    def _save_to_cache(self):
+    def _save_to_cache(self, status):
         """
         Add the file and link information to the moar-dots cachefile
+        Updates the status 
         """
         cache[self.name] = {
             "description": self.properties["description"],
@@ -223,10 +226,11 @@ class Dot:
             "target": self.target,
             "type": self.dot_type,
             "is_directory": self.properties["is_directory"],
-            "install": "False",
+            "status": status,
         }
 
-        pass
+        if self.backup_file:
+            cache["backup"] = f"{self.target}{BACKUP_EXTENSION}"
 
     def dot_it(self):
         """
@@ -255,7 +259,7 @@ class Dot:
         self._check_file()
 
         os.symlink(self.source, self.target)
-        self._save_to_cache()
+        self._save_to_cache("installed")
 
     def is_installed(self):
         """
@@ -271,9 +275,40 @@ class Dot:
         """
         Removes the dotfile symlink and restores original if found
         """
-        self.log.info(f"Nuke it: {self.properties['name']}")
+        self.log.info(f"Nuke it: {self.name}")
+        self.log.debug("Checking file status...")
 
-        if not os.path.islink(self.properties["target"]):
-            self.log.warn("")
+        if self.name not in cache:
+            self.log.info("File not in cache! Skipping...")
+            return
 
-        # TODO: Update cache
+        if cache[self.name]["status"] != "installed":
+            self.log.info("File has already been removed. Skipping...")
+            return
+
+        if not os.path.islink(cache[self.name]["target"]):
+            Wipe(
+                "FileNotLinkError",
+                f"The file {cache[self.name]['target']} appears to be a link!",
+                "The file was most likely moved outside of moar-dots. Please check the file.",
+                "You can remove this from the cache by passing '--update-cache' to moar-dots.",
+            )
+
+        if not self.is_installed():
+            Wipe(
+                "FileNotFoundError",
+                f"The file {cache[self.name]['target']} is not found!",
+                "The might have been removed outside of moar-dots. Please check the file.",
+                "You can remove this from cache by passing '--update-cache' to moar-dots.",
+            )
+
+        self.log.debug(f"Unlinking {cache[self.name]['target']}...")
+        os.unlink(cache["name"]["target"])
+        self._save_to_cache("removed")
+
+    def validate_cache(self):
+        """
+        Processes the Dot in cache to ensure validity.
+        Any cache entry not fully validated will be either updated if possible or removed
+        """
+        self.log.info(f"Updating cache for {self.name}...")
