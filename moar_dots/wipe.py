@@ -68,10 +68,10 @@ class Wipe:
         """
         self.log.debug("Starting Onyxia Wipe...")
 
-        error = self._roll_for_error(easter["aggro"])
-        self.log.debug(f"Error retrieved: {error['error']}")
+        error_msg = self._roll_for_error(easter["aggro"])
+        self.log.debug(f"Error retrieved: {error_msg['error']}")
         self.log.info("=" * 70)
-        for line in error["text"]:
+        for line in error_msg["text"]:
             self.log.info(line)
             sleep(2)
 
@@ -84,10 +84,10 @@ class Wipe:
 
         self.log.debug("Updating easter egg data and quitting...")
         easter["aggro"] += 1
-        if "dkpminus" in error:
-            easter["dkpminus"] += error["dkpminus"]
+        if "dkpminus" in error_msg:
+            easter["dkpminus"] += error_msg["dkpminus"]
             self.log.error(
-                f"\nOh, and by the way, that was a {error['dkpminus']} DKP minus."
+                f"\nOh, and by the way, that was a {error_msg['dkpminus']} DKP minus."
             )
 
         with open(EASTER_FILE, "w+") as file:
