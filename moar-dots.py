@@ -3,12 +3,13 @@ import logging
 import os
 import sys
 
-from moar_dots import config, Dot, Wipe
+from moar_dots import config, easter
+from moar_dots import Dot, Wipe
 
 """
 moar-dots - More than a Dotfile script!
 
-Requires Python 3.7 to run, because I'm lazy and f-strings are so much prettier.
+Requires Python 3.7 to run, because I'm lazy and f-strings are so much nicer.
 
 Usage: TBD
 
