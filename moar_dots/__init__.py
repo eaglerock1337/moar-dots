@@ -1,5 +1,5 @@
 # Classes
-from .dines import Dines
+from .dives import Dives
 from .dot import Dot
 from .wipe import Wipe
 

@@ -5,28 +5,17 @@ import yaml
 from .config import easter
 from .constants import ERROR_FILE
 
-Error = collections.namedtuple("Error", ["Name", "Text", "DKPMinus"])
+ErrorQuote = collections.namedtuple("ErrorQuote", "Name, Text, Aggro, DKPMinus")
 
 class Dives:
-
+    """
+    A Class for containing and interacting with all Dives error quotes.
+    Quotes are defined as a list of named tuples that make referencing the object easy.
+    """
     def __init__(self):
         self.log = logging.getLogger(__name__)
         self.log.debug("Spawning Dives...")
-        print("foo")
-        self.errors = []
-        error_yaml = self._get_aggro()
-        print("poo")
-        for my_error in error_yaml:
-            print(my_error)
-            dkp_minus = 0
-            if "dkpminus" in my_error:
-                dkp_minus = my_error["dkpminus"]
-
-            self.errors[my_error["aggro"]] = Error(
-                                                my_error["error"],
-                                                my_error["text"],
-                                                dkp_minus
-                                             )
+        self.errors = self._unpack_quotes()
 
     def __len__(self):
         return len(self.errors)
@@ -45,3 +34,16 @@ class Dives:
             errors = list(yaml.load_all(file, Loader=yaml.FullLoader))
 
         return errors
+
+    def _unpack_quotes(self):
+        quotes = []
+        error_yaml = self._get_aggro()
+        for my_error in error_yaml:
+            dkp_minus = 0
+            if "dkpminus" in my_error.keys():
+                dkp_minus = my_error["dkpminus"]
+
+            my_error_tuple = ErrorQuote(my_error["error"], my_error["text"], my_error["aggro"], dkp_minus)
+            quotes.append(my_error_tuple)
+
+        return quotes
