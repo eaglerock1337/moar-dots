@@ -7,11 +7,11 @@ from .constants import ERROR_FILE
 
 Error = collections.namedtuple("Error", ["Name", "Text", "DKPMinus"])
 
-class Dines:
+class Dives:
 
     def __init__(self):
         self.log = logging.getLogger(__name__)
-        self.log.debug("Spawning Dines...")
+        self.log.debug("Spawning Dives...")
         print("foo")
         self.errors = []
         error_yaml = self._get_aggro()
