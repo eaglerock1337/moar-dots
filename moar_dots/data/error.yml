@@ -10,7 +10,7 @@ error: dps_slowly
 text:
   - Okay, LISTEN THE FUCK UP!
   - You're doing to DPS...very very slowly!
-  - And by slow I mean FUCKING SLOW!
+  - And by slow I mean FUCKING slow!
 aggro: 1
 ---
 error: learn2play
@@ -71,7 +71,7 @@ aggro: 9
 ---
 error: go_away_lee
 text:
-  - Lee, do NOT...
+  - Lee, do NOT go...
   - Go away from the head, Lee!
   - GO AWAY!
 aggro: 10
@@ -111,22 +111,22 @@ error: right_fucking_place
 text:
   - IF YOU STAND IN THE RIGHT FUCKING PLACE...
   - THERE IS NO WAY YOU ARE GOING TO FUCKING GET...
-  - INTO THE GODDAMN WHELPS...WHATEVER THE FUCK!
+  - INTO THE GODDAMN WHELPS!
 aggro: 20
-dkpminus: 50
----
-error: whatever_fear
-text:
-  - WHATEVER THE FUCK!
-  - WHATEVER FEAR... TAILSWIPE...
-  - WHATEVER THE FUCK!!! OKAY???
-aggro: 25
 dkpminus: 50
 ---
 error: one_in_million
 text:
+  - WHATEVER FUCKING FEAR... TAILSWIPE...
+  - WHATEVER THE FUCK!!! OKAY???
   - IT'S LIKE ONE IN A FUCKING MILLION!
-  - FROM THE NORTH CORNER, TO THE MIDDLE, TO THE FUCKING WHELP CAVE...
+aggro: 25
+dkpminus: 50
+---
+error: not_imaginable
+text:
+  - FROM THE...FUCKING NORTH CORNER...
+  - TO THE MIDDLE...INTO THE FUCKING WHELP CAVE?
   - IT'S NOT EVEN FUCKING REMOTELY IMAGINABLE!!!
 aggro: 30
 dkpminus: 100
